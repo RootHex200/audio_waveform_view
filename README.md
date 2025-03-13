@@ -1,39 +1,62 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Audio Waveform View
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A Flutter package that provides a customizable waveform visualization for audio playback. This package allows you to render beautiful waveform displays with progress indicators, ideal for audio player interfaces.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Customizable played and unplayed waveform colors
+- Visual progress indicator with custom thumb
+- Dynamic waveform generation
+- Smooth rendering with custom painting
+- Responsive design that adapts to available space
 
-## Getting started
+## Screenshots
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+<!-- Add your screenshots here -->
+![Waveform Example](./assets/waveform_view.png)
+
+## Installation
+
+Add `audio_waveform_view` to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  audio_waveform_view: ^1.0.0
+```
+
+Run:
+
+```bash
+flutter pub get
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Basic implementation:
 
 ```dart
-const like = 'sample';
+  SizedBox(
+    height: 70,
+    width: 400,
+    child: CustomPaint(
+      painter:WaveformPainter(
+        progress: 0.666665,
+        playedColor: Colors.blue, 
+        unplayedColor: Colors.grey,
+          max: 1.0, 
+          min: 0.0
+        ),
+    )
+  )
 ```
 
-## Additional information
+## Parameters
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `progress` | `double` | The current progress value between `min` and `max` |
+| `playedColor` | `Color` | The color used for the played portion of the waveform |
+| `unplayedColor` | `Color` | The color used for the unplayed portion of the waveform |
+| `max` | `double` | The maximum value for the progress range |
+| `min` | `double` | The minimum value for the progress range |
+| `thumbColor` | `Color?` | The color of the progress indicator thumb (defaults to `playedColor` if not specified) |

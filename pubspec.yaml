@@ -1,6 +1,6 @@
 name: audio_waveform_view
 description: "Audio Waveform View package"
-version: 0.0.1
+version: 1.0.0
 homepage:
 
 environment:
