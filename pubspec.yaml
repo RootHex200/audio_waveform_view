@@ -1,7 +1,7 @@
 name: audio_waveform_view
 description: "Audio Waveform View package"
 version: 1.0.0
-homepage:
+homepage: https://github.com/RootHex200/audio_waveform_view
 
 environment:
   sdk: ^3.5.0
