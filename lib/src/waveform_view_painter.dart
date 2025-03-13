@@ -1,14 +1,34 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
+/// A custom painter that renders a waveform visualization.
+/// 
+/// The `WaveformPainter` class is useful for visualizing audio data in a waveform
+/// format, displaying progress based on a given value and rendering different colors
+/// for played and unplayed segments.
 class WaveformPainter extends CustomPainter {
+  /// The progress of the waveform playback, ranging from [min] to [max].
   final double progress;
+
+  /// The color used to paint the played portion of the waveform.
   final Color playedColor;
+
+  /// The color used to paint the unplayed portion of the waveform.
   final Color unplayedColor;
+
+  /// The color of the progress thumb indicator. If null, defaults to [playedColor].
   final Color? thumbColor;
+
+  /// The maximum value of the progress range.
   final double max;
+
+  /// The minimum value of the progress range.
   final double min;
 
+  /// Constructs a [WaveformPainter].
+  /// 
+  /// [progress], [playedColor], [unplayedColor], [max], and [min] are required.
+  /// [thumbColor] is optional and will default to [playedColor] if not provided.
   WaveformPainter({
     required this.progress,
     required this.playedColor,
@@ -18,10 +38,12 @@ class WaveformPainter extends CustomPainter {
     this.thumbColor,
   });
 
-  // Simulate audio data - in a real app, this would come from audio file analysis
+  /// Simulated audio data represented as a list of doubles ranging from 0.1 to 0.9.
+  /// 
+  /// This data is randomly generated and should be replaced by actual audio file analysis.
   final List<double> _audioSamples = List.generate(150, (index) {
     final Random random = Random();
-    return 0.1 + random.nextDouble() * 0.8; // Random heights between 0.1 and 0.9
+    return 0.1 + random.nextDouble() * 0.8;
   });
 
   @override
@@ -62,7 +84,7 @@ class WaveformPainter extends CustomPainter {
       const double progressBarWidth = 6;
 
       final Paint progressPaint = Paint()
-        ..color =thumbColor?? playedColor
+        ..color = thumbColor ?? playedColor
         ..style = PaintingStyle.fill;
 
       canvas.drawRRect(
@@ -79,6 +101,4 @@ class WaveformPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true; 
   }
-
-
 }
