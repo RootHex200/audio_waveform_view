@@ -60,8 +60,3 @@ Basic implementation:
 | `max` | `double` | The maximum value for the progress range |
 | `min` | `double` | The minimum value for the progress range |
 | `thumbColor` | `Color?` | The color of the progress indicator thumb (defaults to `playedColor` if not specified) |
-
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
