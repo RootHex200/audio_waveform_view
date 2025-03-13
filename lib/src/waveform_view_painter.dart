@@ -1,20 +1,22 @@
-
-
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class WaveformPainter extends CustomPainter {
   final double progress;
   final Color playedColor;
   final Color unplayedColor;
+  final Color? thumbColor;
+  final double max;
+  final double min;
 
   WaveformPainter({
     required this.progress,
     required this.playedColor,
     required this.unplayedColor,
+    required this.max,
+    required this.min,
+    this.thumbColor,
   });
-
 
   // Simulate audio data - in a real app, this would come from audio file analysis
   final List<double> _audioSamples = List.generate(150, (index) {
@@ -35,32 +37,32 @@ class WaveformPainter extends CustomPainter {
     final int maxBars = (width / totalBarWidth).floor();
     final int displaySampleCount = sampleCount.clamp(0, maxBars);
 
+    double clampedProgress = ((progress - min) / (max - min)).clamp(0.0, 1.0);
+
     for (int i = 0; i < displaySampleCount; i++) {
       final double barHeight = _audioSamples[i] * height * 0.8;
       final double left = i * totalBarWidth;
       final double top = (height - barHeight) / 2;
 
       final Paint paint = Paint()
-        ..color = i <= (displaySampleCount * progress).floor() ? playedColor : unplayedColor
+        ..color = i <= (displaySampleCount * clampedProgress).floor() ? playedColor : unplayedColor
         ..style = PaintingStyle.fill;
-
 
       canvas.drawRRect(
         RRect.fromRectAndRadius(
-          Rect.fromLTWH(left, top, barWidth, barHeight), // No shrinking
+          Rect.fromLTWH(left, top, barWidth, barHeight),
           const Radius.circular(3),
         ),
         paint,
       );
     }
 
-
-    if (progress > 0 && progress < 1) {
-      final double progressX = (displaySampleCount * progress) * totalBarWidth;
-      const double progressBarWidth = 6; 
+    if (clampedProgress > 0 && clampedProgress < 1) {
+      final double progressX = (displaySampleCount * clampedProgress) * totalBarWidth;
+      const double progressBarWidth = 6;
 
       final Paint progressPaint = Paint()
-        ..color = Colors.white
+        ..color =thumbColor?? playedColor
         ..style = PaintingStyle.fill;
 
       canvas.drawRRect(
@@ -77,4 +79,6 @@ class WaveformPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true; 
   }
+
+
 }
